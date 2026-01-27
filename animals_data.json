@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Red Fox",
+    "taxonomy": {
+      "scientific_name": "Vulpes vulpes"
+    },
+    "locations": ["Europe", "Asia", "North-America"],
+    "characteristics": {
+      "type": "Mammal",
+      "diet": "Omnivore",
+      "color": "Red"
+    }
+  },
+  {
+    "name": "Arctic Fox",
+    "taxonomy": {
+      "scientific_name": "Vulpes lagopus"
+    },
+    "locations": ["Arctic"],
+    "characteristics": {
+      "type": "Mammal",
+      "diet": "Carnivore",
+      "color": "White"
+    }
+  }
+]
