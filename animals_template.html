@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My Animal Repository</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        width: 900px;
+        margin: 40px auto;
+      }
+      h1 {
+        text-align: center;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 16px;
+        margin: 16px 0;
+      }
+      .title {
+        font-weight: bold;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Animal Repository</h1>
+    <ul>
+      {% for animal in animals %}
+      <li>
+        <div class="title">{{ animal.name }}</div>
+        <div><strong>Scientific:</strong> {{ animal.taxonomy.scientific_name }}</div>
+        <div><strong>Location:</strong> {{ animal.locations | join(", ") }}</div>
+        <div><strong>Type:</strong> {{ animal.characteristics.type }}</div>
+        <div><strong>Diet:</strong> {{ animal.characteristics.diet }}</div>
+        <div><strong>Color:</strong> {{ animal.characteristics.color }}</div>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
