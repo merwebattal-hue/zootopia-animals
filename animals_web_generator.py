@@ -1,21 +1,19 @@
 import json
-from jinja2 import Template
 
-# JSON verisini oku
-with open("animals_data.json", "r", encoding="utf-8") as f:
-    animals = json.load(f)
+def load_data(file_path):
+    """Loads a JSON file"""
+    with open(file_path, "r") as handle:
+        return json.load(handle)
 
-# HTML template'i oku
-with open("animals_template.html", "r", encoding="utf-8") as f:
-    template_content = f.read()
+animals_data = load_data("animals_data.json")
 
-template = Template(template_content)
-
-# Template'i JSON ile doldur
-rendered_html = template.render(animals=animals)
-
-# Çıktıyı yaz
-with open("animals.html", "w", encoding="utf-8") as f:
-    f.write(rendered_html)
-
-print("animals.html başarıyla oluşturuldu")
+for animal in animals_data:
+    if "name" in animal:
+        print(f"Name: {animal['name']}")
+    if "diet" in animal:
+        print(f"Diet: {animal['diet']}")
+    if "locations" in animal and animal["locations"]:
+        print(f"Location: {animal['locations'][0]}")
+    if "type" in animal:
+        print(f"Type: {animal['type']}")
+    print()
