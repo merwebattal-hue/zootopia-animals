@@ -28,17 +28,36 @@
       }
     </style>
   </head>
+
   <body>
     <h1>My Animal Repository</h1>
+
     <ul>
       {% for animal in animals %}
       <li>
+        {% if animal.name %}
         <div class="title">{{ animal.name }}</div>
+        {% endif %}
+
+        {% if animal.taxonomy and animal.taxonomy.scientific_name %}
         <div><strong>Scientific:</strong> {{ animal.taxonomy.scientific_name }}</div>
+        {% endif %}
+
+        {% if animal.locations %}
         <div><strong>Location:</strong> {{ animal.locations | join(", ") }}</div>
+        {% endif %}
+
+        {% if animal.characteristics and animal.characteristics.type %}
         <div><strong>Type:</strong> {{ animal.characteristics.type }}</div>
+        {% endif %}
+
+        {% if animal.characteristics and animal.characteristics.diet %}
         <div><strong>Diet:</strong> {{ animal.characteristics.diet }}</div>
+        {% endif %}
+
+        {% if animal.characteristics and animal.characteristics.color %}
         <div><strong>Color:</strong> {{ animal.characteristics.color }}</div>
+        {% endif %}
       </li>
       {% endfor %}
     </ul>
