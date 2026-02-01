@@ -8,30 +8,52 @@ def load_data(file_path):
 
 
 def serialize_animal(animal):
-    """Converts a single animal object into HTML."""
+    """
+    Converts a single animal object into an HTML card.
+    Bonus fields included: Scientific name, Color, all Locations.
+    """
+    name = animal.get("name")
+    taxonomy = animal.get("taxonomy", {})
+    characteristics = animal.get("characteristics", {})
+    locations = animal.get("locations", [])
+
     output = '<li class="cards__item">\n'
 
-    # Name
-    if "name" in animal:
-        output += f'  <div class="card__title">{animal["name"]}</div>\n'
+    # Title
+    if name:
+        output += f'  <div class="card__title">{name}</div>\n'
 
     output += '  <p class="card__text">\n'
 
-    # Diet
-    characteristics = animal.get("characteristics", {})
-    if "diet" in characteristics:
-        output += f'    <strong>Diet:</strong> {characteristics["diet"]}<br/>\n'
+    # Scientific name (BONUS)
+    scientific = taxonomy.get("scientific_name")
+    if scientific:
+        output += f'    <strong>Scientific:</strong> {scientific}<br/>\n'
 
-    # Location (first item)
-    if "locations" in animal and animal["locations"]:
-        output += f'    <strong>Location:</strong> {animal["locations"][0]}<br/>\n'
+    # Diet
+    diet = characteristics.get("diet")
+    if diet:
+        output += f'    <strong>Diet:</strong> {diet}<br/>\n'
+
+    # All locations (BONUS)
+    if locations:
+        output += (
+            f'    <strong>Location:</strong> '
+            f'{", ".join(locations)}<br/>\n'
+        )
 
     # Type
-    if "type" in characteristics:
-        output += f'    <strong>Type:</strong> {characteristics["type"]}<br/>\n'
+    animal_type = characteristics.get("type")
+    if animal_type:
+        output += f'    <strong>Type:</strong> {animal_type}<br/>\n'
 
-    output += "  </p>\n"
-    output += "</li>\n"
+    # Color (BONUS)
+    color = characteristics.get("color")
+    if color:
+        output += f'    <strong>Color:</strong> {color}<br/>\n'
+
+    output += '  </p>\n'
+    output += '</li>\n'
 
     return output
 
@@ -43,17 +65,17 @@ def main():
     with open("animals_template.html", "r", encoding="utf-8") as file:
         template_html = file.read()
 
-    # Generate animal cards
+    # Generate HTML for all animals
     animals_html = ""
     for animal in animals:
         animals_html += serialize_animal(animal)
 
-    # Replace placeholder
+    # Replace placeholder in template
     final_html = template_html.replace(
         "__REPLACE_ANIMALS_INFO__", animals_html
     )
 
-    # Write output HTML
+    # Write final HTML file
     with open("animals.html", "w", encoding="utf-8") as file:
         file.write(final_html)
 
