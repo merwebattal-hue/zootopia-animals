@@ -9,18 +9,31 @@
         width: 900px;
         margin: 40px auto;
       }
+
       h1 {
         text-align: center;
       }
+
       ul.cards {
         list-style: none;
         padding: 0;
       }
+
       li.cards__item {
         border: 1px solid #ddd;
         border-radius: 6px;
         padding: 16px;
         margin: 16px 0;
+      }
+
+      .card__title {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .card__text {
+        margin: 0;
       }
     </style>
   </head>
@@ -30,16 +43,20 @@
 
     <ul class="cards">
       <li class="cards__item">
-Name: Red Fox<br/>
-Diet: Omnivore<br/>
-Location: Europe<br/>
-Type: Mammal<br/>
+  <div class="card__title">Red Fox</div>
+  <p class="card__text">
+      <strong>Diet:</strong> Omnivore<br/>
+      <strong>Location:</strong> Europe<br/>
+      <strong>Type:</strong> Mammal<br/>
+  </p>
 </li>
 <li class="cards__item">
-Name: Arctic Fox<br/>
-Diet: Carnivore<br/>
-Location: Arctic<br/>
-Type: Mammal<br/>
+  <div class="card__title">Arctic Fox</div>
+  <p class="card__text">
+      <strong>Diet:</strong> Carnivore<br/>
+      <strong>Location:</strong> Arctic<br/>
+      <strong>Type:</strong> Mammal<br/>
+  </p>
 </li>
 
     </ul>
