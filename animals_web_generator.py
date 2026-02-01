@@ -2,56 +2,62 @@ import json
 
 
 def load_data(file_path):
-    """Loads a JSON file"""
+    """Loads a JSON file and returns parsed data."""
     with open(file_path, "r", encoding="utf-8") as handle:
         return json.load(handle)
 
 
+def serialize_animal(animal):
+    """Converts a single animal object into HTML."""
+    output = '<li class="cards__item">\n'
+
+    # Name
+    if "name" in animal:
+        output += f'  <div class="card__title">{animal["name"]}</div>\n'
+
+    output += '  <p class="card__text">\n'
+
+    # Diet
+    characteristics = animal.get("characteristics", {})
+    if "diet" in characteristics:
+        output += f'    <strong>Diet:</strong> {characteristics["diet"]}<br/>\n'
+
+    # Location (first item)
+    if "locations" in animal and animal["locations"]:
+        output += f'    <strong>Location:</strong> {animal["locations"][0]}<br/>\n'
+
+    # Type
+    if "type" in characteristics:
+        output += f'    <strong>Type:</strong> {characteristics["type"]}<br/>\n'
+
+    output += "  </p>\n"
+    output += "</li>\n"
+
+    return output
+
+
 def main():
-    data = load_data("animals_data.json")
+    animals = load_data("animals_data.json")
 
+    # Read HTML template
+    with open("animals_template.html", "r", encoding="utf-8") as file:
+        template_html = file.read()
 
-    with open("animals_template.html", "r", encoding="utf-8") as f:
-        template_html = f.read()
+    # Generate animal cards
+    animals_html = ""
+    for animal in animals:
+        animals_html += serialize_animal(animal)
 
+    # Replace placeholder
+    final_html = template_html.replace(
+        "__REPLACE_ANIMALS_INFO__", animals_html
+    )
 
-    output = ""
-    for animal in data:
-        name = animal.get("name")
+    # Write output HTML
+    with open("animals.html", "w", encoding="utf-8") as file:
+        file.write(final_html)
 
-        characteristics = animal.get("characteristics", {})
-        diet = characteristics.get("diet")
-        animal_type = characteristics.get("type")
-
-        locations = animal.get("locations", [])
-        location_first = locations[0] if locations else None
-
-        output += '<li class="cards__item">\n'
-
-        # Title
-        if name:
-            output += f'  <div class="card__title">{name}</div>\n'
-
-        # Text block
-        output += '  <p class="card__text">\n'
-        if diet:
-            output += f'      <strong>Diet:</strong> {diet}<br/>\n'
-        if location_first:
-            output += f'      <strong>Location:</strong> {location_first}<br/>\n'
-        if animal_type:
-            output += f'      <strong>Type:</strong> {animal_type}<br/>\n'
-        output += "  </p>\n"
-
-        output += "</li>\n"
-
-
-    final_html = template_html.replace("__REPLACE_ANIMALS_INFO__", output)
-
-
-    with open("animals.html", "w", encoding="utf-8") as f:
-        f.write(final_html)
-
-    print("animals.html oluşturuldu")
+    print("animals.html erfolgreich erstellt.")
 
 
 if __name__ == "__main__":
