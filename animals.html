@@ -12,19 +12,15 @@
       h1 {
         text-align: center;
       }
-      ul {
+      ul.cards {
         list-style: none;
         padding: 0;
       }
-      li {
+      li.cards__item {
         border: 1px solid #ddd;
         border-radius: 6px;
         padding: 16px;
         margin: 16px 0;
-      }
-      .title {
-        font-weight: bold;
-        font-size: 18px;
       }
     </style>
   </head>
@@ -32,60 +28,20 @@
   <body>
     <h1>My Animal Repository</h1>
 
-    <ul>
-      
-      <li>
-        
-        <div class="title">Red Fox</div>
-        
+    <ul class="cards">
+      <li class="cards__item">
+Name: Red Fox<br/>
+Diet: Omnivore<br/>
+Location: Europe<br/>
+Type: Mammal<br/>
+</li>
+<li class="cards__item">
+Name: Arctic Fox<br/>
+Diet: Carnivore<br/>
+Location: Arctic<br/>
+Type: Mammal<br/>
+</li>
 
-        
-        <div><strong>Scientific:</strong> Vulpes vulpes</div>
-        
-
-        
-        <div><strong>Location:</strong> Europe, Asia, North-America</div>
-        
-
-        
-        <div><strong>Type:</strong> Mammal</div>
-        
-
-        
-        <div><strong>Diet:</strong> Omnivore</div>
-        
-
-        
-        <div><strong>Color:</strong> Red</div>
-        
-      </li>
-      
-      <li>
-        
-        <div class="title">Arctic Fox</div>
-        
-
-        
-        <div><strong>Scientific:</strong> Vulpes lagopus</div>
-        
-
-        
-        <div><strong>Location:</strong> Arctic</div>
-        
-
-        
-        <div><strong>Type:</strong> Mammal</div>
-        
-
-        
-        <div><strong>Diet:</strong> Carnivore</div>
-        
-
-        
-        <div><strong>Color:</strong> White</div>
-        
-      </li>
-      
     </ul>
   </body>
 </html>

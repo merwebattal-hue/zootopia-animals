@@ -1,5 +1,4 @@
 import json
-from jinja2 import Environment, FileSystemLoader
 
 
 def load_data(file_path):
@@ -11,16 +10,38 @@ def load_data(file_path):
 def main():
     animals = load_data("animals_data.json")
 
-    # Jinja2 ortamı
-    env = Environment(loader=FileSystemLoader("."))
-    template = env.get_template("animals_template.html")
+    # 1) Template oku
+    with open("animals_template.html", "r", encoding="utf-8") as f:
+        template_html = f.read()
 
-    # HTML üret
-    rendered_html = template.render(animals=animals)
 
-    # animals.html yaz
+    output = ""
+
+    for animal in animals:
+        output += '<li class="cards__item">\n'
+
+        if "name" in animal:
+            output += f"Name: {animal['name']}<br/>\n"
+
+        characteristics = animal.get("characteristics", {})
+
+        if "diet" in characteristics:
+            output += f"Diet: {characteristics['diet']}<br/>\n"
+
+        if "locations" in animal and animal["locations"]:
+            output += f"Location: {animal['locations'][0]}<br/>\n"
+
+        if "type" in characteristics:
+            output += f"Type: {characteristics['type']}<br/>\n"
+
+        output += "</li>\n"
+
+
+    final_html = template_html.replace("__REPLACE_ANIMALS_INFO__", output)
+
+
     with open("animals.html", "w", encoding="utf-8") as f:
-        f.write(rendered_html)
+        f.write(final_html)
 
     print("animals.html başarıyla oluşturuldu")
 
